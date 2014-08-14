@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Repository [
+    <!ELEMENT Repository
+        (DataSources|Cluster|FileSystem|DataStore|Security|Workspaces|Workspace|Versioning|SearchIndex|RepositoryLockMechanism)*>
+
+        <!ELEMENT DataSources (DataSource*)>
+        <!ELEMENT DataSource (param*)>
+        <!ATTLIST DataSource name CDATA #REQUIRED>
+        <!ELEMENT FileSystem (param*)>
+        <!ATTLIST FileSystem class CDATA #REQUIRED>
+
+        <!ELEMENT Security (SecurityManager?, AccessManager?, LoginModule?)>
+        <!ATTLIST Security appName CDATA #REQUIRED>
+
+        <!ELEMENT SecurityManager (WorkspaceAccessManager?,UserManager?,UserIdClass?, param*)>
+        <!ATTLIST SecurityManager class CDATA #REQUIRED
+                                  workspaceName CDATA #IMPLIED>
+
+        <!ELEMENT AccessManager (param*)>
+        <!ATTLIST AccessManager class CDATA #REQUIRED>
+
+        <!ELEMENT param EMPTY>
+        <!ATTLIST param name  CDATA #REQUIRED
+                        value CDATA #REQUIRED>
+
+        <!ELEMENT LoginModule (param*)>
+        <!ATTLIST LoginModule class CDATA #REQUIRED>
+
+        <!ELEMENT WorkspaceAccessManager EMPTY>
+        <!ATTLIST WorkspaceAccessManager class CDATA #REQUIRED>
+
+        <!ELEMENT Workspaces EMPTY>
+        <!ATTLIST Workspaces rootPath         CDATA #REQUIRED
+                             defaultWorkspace CDATA #REQUIRED
+                             configRootPath   CDATA #IMPLIED
+                             maxIdleTime      CDATA #IMPLIED>
+
+        <!ELEMENT Workspace (FileSystem,PersistenceManager,SearchIndex?,ISMLocking?,WorkspaceSecurity?,Import?)>
+        <!ATTLIST Workspace name CDATA #REQUIRED>
+
+        <!ELEMENT PersistenceManager (param*)>
+        <!ATTLIST PersistenceManager class CDATA #REQUIRED>
+
+        <!ELEMENT SearchIndex (param*,FileSystem?)>
+        <!ATTLIST SearchIndex class CDATA #REQUIRED>
+
+        <!ELEMENT WorkspaceSecurity (AccessControlProvider?)>
+
+        <!ELEMENT AccessControlProvider (param*)>
+        <!ATTLIST AccessControlProvider class CDATA #REQUIRED>
+
+        <!ELEMENT Versioning (FileSystem, PersistenceManager, ISMLocking?)>
+        <!ATTLIST Versioning rootPath CDATA #REQUIRED>
+
+        <!ELEMENT Cluster (Journal)>
+        <!ATTLIST Cluster id        CDATA #IMPLIED
+                          syncDelay CDATA #IMPLIED>
+
+        <!ELEMENT Journal (param*)>
+        <!ATTLIST Journal class CDATA #REQUIRED>
+
+        <!ELEMENT ISMLocking (param*)>
+        <!ATTLIST ISMLocking class CDATA #REQUIRED>
+
+        <!ELEMENT RepositoryLockMechanism (param*)>
+        <!ATTLIST RepositoryLockMechanism class CDATA #REQUIRED>
+
+        <!ELEMENT DataStore (param*)>
+        <!ATTLIST DataStore class CDATA #REQUIRED>
+
+        <!ELEMENT Import (ProtectedNodeImporter|ProtectedPropertyImporter)*>
+
+        <!ELEMENT ProtectedNodeImporter (param*)>
+        <!ATTLIST ProtectedNodeImporter class CDATA #REQUIRED>
+
+        <!ELEMENT ProtectedPropertyImporter (param*)>
+        <!ATTLIST ProtectedPropertyImporter class CDATA #REQUIRED>
+
+        <!ELEMENT UserManager (param*)>
+        <!ATTLIST UserManager class CDATA #REQUIRED>
+
+        <!ELEMENT UserIdClass EMPTY>
+        <!ATTLIST UserIdClass class CDATA #REQUIRED>
+]>
+<Repository>
+    <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+        <param name="path" value="${rep.home}/repository" />
+    </FileSystem>
+    <Security appName="magnolia">
+        <SecurityManager class="org.apache.jackrabbit.core.DefaultSecurityManager"/>
+        <AccessManager class="org.apache.jackrabbit.core.security.DefaultAccessManager"/>
+        <LoginModule class="info.magnolia.jaas.sp.jcr.JackrabbitAuthenticationModule"/>
+    </Security>
+    <DataStore class="org.apache.jackrabbit.core.data.FileDataStore">
+        <param name="path" value="${rep.home}/repository/datastore"/>
+        <param name="minRecordLength" value="1024"/>
+    </DataStore>
+    <Workspaces rootPath="${rep.home}/workspaces" defaultWorkspace="default" />
+    <Workspace name="default">
+        <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+            <param name="path" value="${wsp.home}/default" />
+        </FileSystem>
+        <PersistenceManager class="org.apache.jackrabbit.core.persistence.bundle.DerbyPersistenceManager">
+            <param name="url" value="jdbc:derby:${wsp.home}/db;create=true" />
+            <param name="schemaObjectPrefix" value="${wsp.name}_" />
+        </PersistenceManager>
+        <SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+            <param name="path" value="${wsp.home}/index" />
+            <param name="useCompoundFile" value="true" />
+            <param name="minMergeDocs" value="100" />
+            <param name="volatileIdleTime" value="3" />
+            <param name="maxMergeDocs" value="100000" />
+            <param name="mergeFactor" value="10" />
+            <param name="maxFieldLength" value="10000" />
+            <param name="bufferSize" value="10" />
+            <param name="cacheSize" value="1000" />
+            <param name="forceConsistencyCheck" value="false" />
+            <param name="autoRepair" value="true" />
+            <param name="queryClass" value="org.apache.jackrabbit.core.query.QueryImpl" />
+            <param name="resultFetchSize" value="100" />
+            <param name="extractorPoolSize" value="3" />
+            <param name="extractorTimeout" value="100" />
+            <param name="extractorBackLogSize" value="100" />
+        </SearchIndex>
+        <WorkspaceSecurity>
+            <AccessControlProvider class="info.magnolia.cms.core.MagnoliaAccessProvider" />
+        </WorkspaceSecurity>
+    </Workspace>
+    <Versioning rootPath="${rep.home}/version">
+        <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+            <param name="path" value="${rep.home}/workspaces/version" />
+        </FileSystem>
+        <PersistenceManager class="org.apache.jackrabbit.core.persistence.bundle.DerbyPersistenceManager">
+            <param name="url" value="jdbc:derby:${rep.home}/version/db;create=true" />
+            <param name="schemaObjectPrefix" value="version_" />
+        </PersistenceManager>
+    </Versioning>
+</Repository>

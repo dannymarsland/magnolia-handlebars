@@ -1,0 +1,14 @@
+<div id="slider1" data-bean="sliders:Views.Slider(this,slide,paginator)" class="slider">
+    <div data-bean="slide:this">
+        {{#each components}}
+            <div class="item[#if component_index = 0] active[/#if]">
+                {{{cms-component content=this}}}
+            </div>
+        {{/each}}
+    </div>
+    <ul data-bean="paginator:this" class="pagination">
+        {{#each components}}
+        <li {{#if @index}} class="active"{{/if}}></li>
+        {{/each}}
+    </ul>
+</div>

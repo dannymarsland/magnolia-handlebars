@@ -11,10 +11,12 @@
 
     <properties>
         <version.magnolia>5.3.1</version.magnolia>
-        <version.magnolia.dam>2.0.1</version.magnolia.dam>
+        <version.magnolia.dam>2.0.2</version.magnolia.dam>
+        <version.magnolia.blossom>3.0.3</version.magnolia.blossom>
         <version.handlebars>1.3.1</version.handlebars>
         <version.jcr>2.0</version.jcr>
         <version.servet>2.5</version.servet>
+        <version.springframework>4.0.6.RELEASE</version.springframework>
     </properties>
 
     <modules>
@@ -29,6 +31,18 @@
                 <artifactId>magnolia-core</artifactId>
                 <version>${version.magnolia}</version>
                 <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>info.magnolia</groupId>
+                <artifactId>magnolia-empty-webapp</artifactId>
+                <version>${version.magnolia}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>info.magnolia</groupId>
+                <artifactId>magnolia-empty-webapp</artifactId>
+                <version>${version.magnolia}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>info.magnolia</groupId>
@@ -50,6 +64,31 @@
                 <artifactId>jcr</artifactId>
                 <version>${version.jcr}</version>
             </dependency>
+            <dependency>
+                <groupId>info.magnolia.blossom</groupId>
+                <artifactId>magnolia-module-blossom</artifactId>
+                <version>${version.magnolia.blossom}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.magnolia.dam</groupId>
+                <artifactId>magnolia-dam-compatibility</artifactId>
+                <version>${version.magnolia.dam}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${version.servet}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${version.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${version.springframework}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -61,6 +100,10 @@
         <repository>
             <id>magnolia.enterprise.releases</id>
             <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url>
+        </repository>
+        <repository>
+            <id>thirdparty</id>
+            <url>http://nexus.magnolia-cms.com/content/repositories/thirdparty</url>
         </repository>
         <repository>
             <id>thirdparty.customized</id>

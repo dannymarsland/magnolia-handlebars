@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd">
+<module>
+    <name>magnolia-handlebars-example</name>
+    <displayName>Magnolia Handlebars Example Module</displayName>
+    <description>Example module using Blossom and Handlebars based templating</description>
+    <class>com.dannymarsland.magnolia.handlebars.example.module.MagnoliaHandlebarsExampleModule</class>
+    <version>1.0.0</version>
+</module>

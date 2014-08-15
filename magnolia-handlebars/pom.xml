@@ -16,20 +16,27 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.jknack</groupId>
+            <artifactId>handlebars</artifactId>
+        </dependency>
+        <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-rendering</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-templating</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.jknack</groupId>
-            <artifactId>handlebars</artifactId>
+            <groupId>info.magnolia.blossom</groupId>
+            <artifactId>magnolia-module-blossom</artifactId>
         </dependency>
     </dependencies>
 

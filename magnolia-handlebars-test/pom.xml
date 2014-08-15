@@ -61,41 +61,32 @@
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-empty-webapp</artifactId>
-            <version>${version.magnolia}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-empty-webapp</artifactId>
-            <version>${version.magnolia}</version>
             <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>info.magnolia.ui</groupId>
-                    <artifactId>magnolia-ui-framework</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>info.magnolia.dam</groupId>
             <artifactId>magnolia-dam-compatibility</artifactId>
-            <version>${version.magnolia.dam}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>info.magnolia.ui</groupId>
-                    <artifactId>magnolia-ui-framework</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
-            <groupId>info.magnolia.ui</groupId>
-            <artifactId>magnolia-ui-framework</artifactId>
-            <version>${version.magnolia}</version>
+            <groupId>info.magnolia.blossom</groupId>
+            <artifactId>magnolia-module-blossom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>${version.servet}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -18,17 +18,15 @@ public class CmsAreaTemplateHelper extends AbstractTemplateHelper<AreaElement> {
         final AreaElement templatingElement = createTemplatingElement();
         initContentElement(options,templatingElement);
 
-        AreaDefinition area = (AreaDefinition) options.hash("area");
+        AreaDefinition area = options.hash("area");
         String name = options.hash("name");
         String availableComponents = options.hash("components");
         String dialog = options.hash("dialog");
         String type = options.hash("type");
         String label = options.hash("label");
         String description = options.hash("description");
-        // @todo - how ot convert this to a boolean? will this work?
         Boolean editable = options.hash("editable");
-
-        Map<String,Object> contextAttributes = (Map<String, Object>) options.hash("contextAttributes");
+        Map<String,Object> contextAttributes = options.hash("contextAttributes");
 
         templatingElement.setArea(area);
         templatingElement.setName(name);

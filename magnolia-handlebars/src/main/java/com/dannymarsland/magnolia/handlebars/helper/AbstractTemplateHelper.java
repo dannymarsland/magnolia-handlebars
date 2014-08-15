@@ -40,8 +40,8 @@ public abstract class AbstractTemplateHelper<C extends TemplatingElement> implem
 
     protected void initContentElement(Options options, AbstractContentTemplatingElement component)  {
         // @todo The freemarker code ensured that options could be cast to the correct type - here I am just assuming
-        ContentMap contentMap = (ContentMap) options.hash(CONTENT_ATTRIBUTE);
-        Node contentNode = contentMap!=null ? contentMap.getJCRNode(): null;
+        ContentMap contentMap = options.hash(CONTENT_ATTRIBUTE);
+        Node contentNode = contentMap != null ? contentMap.getJCRNode(): null;
         String workspace = options.hash(WORKSPACE_ATTRIBUTE);
         String nodeIdentifier = options.hash(UUID_ATTRIBUTE);
         String path = options.hash(PATH_ATTRIBUTE);

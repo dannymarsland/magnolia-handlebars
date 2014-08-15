@@ -4,7 +4,7 @@
     <name>magnolia-handlebars</name>
     <displayName>Magnolia Handlebars</displayName>
     <description>Handlebars integration for Magnolia</description>
-    <versionHandler>com.dannymarsland.magnolia.handlebars.helper.setup.HandlebarsVersionHandler</versionHandler>
+    <versionHandler>com.dannymarsland.magnolia.handlebars.setup.HandlebarsVersionHandler</versionHandler>
     <version>1.0.0</version>
     <dependencies>
         <dependency>

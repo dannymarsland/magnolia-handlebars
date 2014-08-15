@@ -18,9 +18,8 @@ public class CmsComponentTemplateHelper extends AbstractTemplateHelper<Component
         initContentElement(options, templatingElement);
 
         String dialog = options.hash("dialog");
-        // @todo how to cast to boolean? will ths work?
         Boolean editable = options.hash("editable");
-        Map<String,Object> contextAttributes = (Map<String, Object>) options.hash("contextAttributes");
+        Map<String,Object> contextAttributes = options.hash("contextAttributes");
 
         templatingElement.setDialog(dialog);
         templatingElement.setContextAttributes(contextAttributes);

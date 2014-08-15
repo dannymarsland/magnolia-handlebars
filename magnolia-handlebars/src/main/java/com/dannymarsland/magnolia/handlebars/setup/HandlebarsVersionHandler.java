@@ -1,4 +1,4 @@
-package com.dannymarsland.magnolia.handlebars.helper.setup;
+package com.dannymarsland.magnolia.handlebars.setup;
 
 import info.magnolia.module.DefaultModuleVersionHandler;
 

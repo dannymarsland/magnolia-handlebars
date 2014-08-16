@@ -1,3 +1,4 @@
-src/main/webapp/.runtime
+*.iml
 derby.log
-
+.idea/
+.runtime/

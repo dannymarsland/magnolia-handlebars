@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JCR [
+    <!ELEMENT Map (#PCDATA)>
+    <!ATTLIST Map
+            name CDATA #REQUIRED
+            repositoryName CDATA #REQUIRED
+            workspaceName CDATA #REQUIRED>
+    <!ELEMENT JCR (RepositoryMapping|Repository)*>
+    <!ELEMENT param (#PCDATA)>
+    <!ATTLIST param
+            name CDATA #REQUIRED
+            value CDATA #REQUIRED>
+    <!ELEMENT Repository (param|workspace)*>
+    <!ATTLIST Repository
+            loadOnStartup CDATA #REQUIRED
+            name CDATA #REQUIRED
+            provider CDATA #REQUIRED>
+    <!ELEMENT workspace (#PCDATA)>
+    <!ATTLIST workspace
+            name CDATA #REQUIRED>
+    <!ELEMENT RepositoryMapping (Map)*>
+]>
+<JCR>
+    <RepositoryMapping>
+        <Map name="website" workspaceName="website" repositoryName="magnolia"/>
+        <Map name="config" workspaceName="config" repositoryName="magnolia"/>
+        <Map name="users" workspaceName="users" repositoryName="magnolia"/>
+        <Map name="userroles" workspaceName="userroles" repositoryName="magnolia"/>
+        <Map name="usergroups" workspaceName="usergroups" repositoryName="magnolia"/>
+        <Map name="mgnlSystem" workspaceName="mgnlSystem" repositoryName="magnolia"/>
+        <Map name="mgnlVersion" workspaceName="mgnlVersion" repositoryName="magnolia"/>
+    </RepositoryMapping>
+    <Repository name="magnolia" provider="info.magnolia.jackrabbit.ProviderImpl" loadOnStartup="true">
+        <param name="configFile" value="${magnolia.repositories.magnolia.config}"/>
+        <param name="repositoryHome" value="${magnolia.repositories.home}/local"/>
+        <param name="contextFactoryClass" value="org.apache.jackrabbit.core.jndi.provider.DummyInitialContextFactory"/>
+        <param name="providerURL" value="localhost"/>
+        <param name="bindName" value="${magnolia.webapp}"/>
+        <workspace name="website"/>
+        <workspace name="config"/>
+        <workspace name="users"/>
+        <workspace name="userroles"/>
+        <workspace name="usergroups"/>
+        <workspace name="mgnlSystem"/>
+        <workspace name="mgnlVersion"/>
+    </Repository>
+</JCR>

@@ -4,9 +4,8 @@
     <name>magnolia-handlebars</name>
     <displayName>Magnolia Handlebars</displayName>
     <description>Handlebars integration for Magnolia</description>
-    <versionHandler>com.ogilvy.magnolia.handlebars.setup.HandlebarsVersionHandler</versionHandler>
+    <versionHandler>com.dannymarsland.magnolia.handlebars.setup.HandlebarsVersionHandler</versionHandler>
     <version>1.0.0</version>
-
     <dependencies>
         <dependency>
             <name>core</name>
@@ -17,7 +16,6 @@
             <version>5.2/*</version>
         </dependency>
     </dependencies>
-
     <repositories>
         <repository>
             <name>magnolia</name>

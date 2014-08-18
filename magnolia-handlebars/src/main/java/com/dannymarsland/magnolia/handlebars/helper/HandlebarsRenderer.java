@@ -7,14 +7,20 @@ import com.github.jknack.handlebars.cache.ConcurrentMapTemplateCache;
 import com.github.jknack.handlebars.context.FieldValueResolver;
 import com.github.jknack.handlebars.context.JavaBeanValueResolver;
 import com.github.jknack.handlebars.context.MapValueResolver;
+import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import com.github.jknack.handlebars.io.CompositeTemplateLoader;
 import com.github.jknack.handlebars.io.FileTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
+import info.magnolia.module.blossom.render.RenderContext;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
+import info.magnolia.rendering.engine.RenderingEngine;
+import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
 
+import javax.inject.Inject;
 import javax.jcr.Node;
 import java.io.File;
 import java.io.IOException;
@@ -25,15 +31,20 @@ public class HandlebarsRenderer extends AbstractRenderer {
 
     private Handlebars handlebars;
 
-    public HandlebarsRenderer() {
-        TemplateLoader loader = new FileTemplateLoader(new File("src/main/webapp/"),".hbs");
-        this.handlebars = new Handlebars(loader);
-        // Caching - there are several cache options, the standard one has been used. see https://github.com/jknack/handlebars.java
-        this.handlebars.with(new ConcurrentMapTemplateCache());
+    @Inject
+    public HandlebarsRenderer(RenderingEngine renderingEngine) {
+        super(renderingEngine);
 
-        this.handlebars.registerHelper("cms-init", new CmsInitTemplateHelper());
-        this.handlebars.registerHelper("cms-area", new CmsAreaTemplateHelper());
-        this.handlebars.registerHelper("cms-component", new CmsComponentTemplateHelper());
+        TemplateLoader loader = new CompositeTemplateLoader(
+                new FileTemplateLoader(new File("src/main/resources/templates")),
+                new ClassPathTemplateLoader("/templates")
+        );
+        handlebars = new Handlebars(loader);
+
+        handlebars.with(new ConcurrentMapTemplateCache());
+        handlebars.registerHelper("cms-init", new CmsInitTemplateHelper());
+        handlebars.registerHelper("cms-area", new CmsAreaTemplateHelper());
+        handlebars.registerHelper("cms-component", new CmsComponentTemplateHelper());
     }
 
     @Override
@@ -42,24 +53,30 @@ public class HandlebarsRenderer extends AbstractRenderer {
     }
 
     @Override
-    protected void onRender(Node content, RenderableDefinition definition, RenderingContext renderingCtx,
-                            Map<String, Object> ctx, String templateScript) throws RenderException {
+    protected String resolveTemplateScript(Node content, RenderableDefinition definition, RenderingModel<?> model,
+                                           String actionResult) {
+        return RenderContext.get().getTemplateScript();
+    }
+
+    @Override
+    protected void onRender(Node content, RenderableDefinition definition, RenderingContext renderingContext,
+                            Map<String, Object> context, String templateScript) throws RenderException {
 
         // final Locale locale = MgnlContext.getAggregationState().getLocale();
         // @todo localization support in Handlebars ?
         final AppendableWriter out;
         try {
-            out = renderingCtx.getAppendable();
+            out = renderingContext.getAppendable();
             // Was previously not creating a new context and just passing the context directly,
             // however https://github.com/eiswind/handlebars-magnolia-renderer created a new new context as shown below
-            Context context = Context.newBuilder(ctx)
+            Context localContext = Context.newBuilder(context)
                     .resolver(JavaBeanValueResolver.INSTANCE, FieldValueResolver.INSTANCE, MapValueResolver.INSTANCE)
                     .build();
             try {
                 Template template = handlebars.compile(templateScript);
-                template.apply(ctx,out);
+                template.apply(localContext, out);
             } finally {
-                context.destroy();
+                localContext.destroy();
             }
         } catch (IOException e) {
             e.printStackTrace();

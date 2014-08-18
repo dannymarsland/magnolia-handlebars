@@ -21,7 +21,7 @@
 
     <modules>
         <module>magnolia-handlebars</module>
-        <module>magnolia-handlebars-test</module>
+        <module>magnolia-handlebars-example</module>
     </modules>
 
     <dependencyManagement>

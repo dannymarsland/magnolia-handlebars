@@ -6,6 +6,7 @@ import info.magnolia.module.blossom.view.TemplateViewResolver;
 import info.magnolia.module.blossom.view.UuidRedirectViewResolver;
 import info.magnolia.module.blossom.web.BlossomWebArgumentResolver;
 import info.magnolia.objectfactory.Components;
+import info.magnolia.rendering.engine.RenderingEngine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -63,15 +64,18 @@ public class BlossomConfiguration {
 
     @Bean
     public HandlebarsRenderer handlebarsRenderer() {
-        return new HandlebarsRenderer();
+        return new HandlebarsRenderer(renderingEngine());
+    }
+
+    @Bean
+    public RenderingEngine renderingEngine() {
+        return Components.getComponent(RenderingEngine.class);
     }
 
     @Bean
     public ViewResolver templateViewResolver() {
         TemplateViewResolver resolver = new TemplateViewResolver();
         resolver.setOrder(2);
-        resolver.setPrefix("/templates/");
-        resolver.setViewNames(new String[] { "*.hbs" });
         resolver.setViewRenderer(handlebarsRenderer());
         return resolver;
     }

@@ -1,1 +1,13 @@
-Hello, {{ name }}!
+<html>
+    <head>
+        <title>{{ content.title }}</title>
+    </head>
+    <body>
+        {{#block "body"}}
+            <h1>Hello, {{ name }}!</h1>
+            <p>
+                This is a home page
+            </p>
+        {{/block}}
+    </body>
+</html>

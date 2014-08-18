@@ -7,7 +7,7 @@
     <sv:value>5e16af96-bfb8-48d5-b1ad-ca40c4ae718e</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
-    <sv:value>com.dannymarsland.magnolia.handlebars.helper.HandlebarsRenderer</sv:value>
+    <sv:value>com.dannymarsland.magnolia.handlebars.renderer.HandlebarsRenderer</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

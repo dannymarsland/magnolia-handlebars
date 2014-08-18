@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>magnolia-handlebars-test</artifactId>
+    <artifactId>magnolia-handlebars-example</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <parent>
@@ -71,18 +71,6 @@
         <dependency>
             <groupId>info.magnolia.dam</groupId>
             <artifactId>magnolia-dam-compatibility</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.blossom</groupId>
-            <artifactId>magnolia-module-blossom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

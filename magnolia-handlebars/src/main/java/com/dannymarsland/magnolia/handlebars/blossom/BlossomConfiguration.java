@@ -1,11 +1,12 @@
-package com.dannymarsland.magnolia.handlebars.example.blossom.configuration;
+package com.dannymarsland.magnolia.handlebars.blossom;
 
-import com.dannymarsland.magnolia.handlebars.helper.HandlebarsRenderer;
+import com.dannymarsland.magnolia.handlebars.renderer.HandlebarsRenderer;
 import info.magnolia.module.blossom.preexecution.BlossomHandlerMapping;
 import info.magnolia.module.blossom.view.TemplateViewResolver;
 import info.magnolia.module.blossom.view.UuidRedirectViewResolver;
 import info.magnolia.module.blossom.web.BlossomWebArgumentResolver;
 import info.magnolia.objectfactory.Components;
+import info.magnolia.rendering.engine.RenderingEngine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
-@SuppressWarnings("deprecation")
 @Configuration
 public class BlossomConfiguration {
 
@@ -25,6 +25,7 @@ public class BlossomConfiguration {
     }
 
     @Bean
+    @SuppressWarnings("deprecation")
     public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter() {
         AnnotationMethodHandlerAdapter adapter = new AnnotationMethodHandlerAdapter();
         adapter.setCustomArgumentResolver(new BlossomWebArgumentResolver());
@@ -32,6 +33,7 @@ public class BlossomConfiguration {
     }
 
     @Bean
+    @SuppressWarnings("deprecation")
     public DefaultAnnotationHandlerMapping defaultAnnotationHandlerMapping() {
         DefaultAnnotationHandlerMapping mapping = new DefaultAnnotationHandlerMapping();
         mapping.setUseDefaultSuffixPattern(false);
@@ -63,15 +65,18 @@ public class BlossomConfiguration {
 
     @Bean
     public HandlebarsRenderer handlebarsRenderer() {
-        return new HandlebarsRenderer();
+        return new HandlebarsRenderer(renderingEngine());
+    }
+
+    @Bean
+    public RenderingEngine renderingEngine() {
+        return Components.getComponent(RenderingEngine.class);
     }
 
     @Bean
     public ViewResolver templateViewResolver() {
         TemplateViewResolver resolver = new TemplateViewResolver();
         resolver.setOrder(2);
-        resolver.setPrefix("/templates/");
-        resolver.setViewNames(new String[] { "*.hbs" });
         resolver.setViewRenderer(handlebarsRenderer());
         return resolver;
     }

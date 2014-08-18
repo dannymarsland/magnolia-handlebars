@@ -4,24 +4,14 @@
     <name>magnolia-handlebars</name>
     <displayName>Magnolia Handlebars</displayName>
     <description>Handlebars integration for Magnolia</description>
-    <versionHandler>com.dannymarsland.magnolia.handlebars.setup.HandlebarsVersionHandler</versionHandler>
+    <class>com.dannymarsland.magnolia.handlebars.setup.HandlebarsModule</class>
     <version>1.0.0</version>
     <dependencies>
         <dependency>
             <name>core</name>
-            <version>5.2/*</version>
         </dependency>
         <dependency>
-            <name>rendering</name>
-            <version>5.2/*</version>
+            <name>blossom</name>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <name>magnolia</name>
-            <workspaces>
-                <workspace>handlebars</workspace>
-            </workspaces>
-        </repository>
-    </repositories>
 </module>

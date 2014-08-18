@@ -1,4 +1,4 @@
-package com.dannymarsland.magnolia.handlebars.example.blossom.templates;
+package com.dannymarsland.magnolia.handlebars.example.templates;
 
 import info.magnolia.module.blossom.annotation.Template;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,8 @@
-package com.dannymarsland.magnolia.handlebars.helper;
+package com.dannymarsland.magnolia.handlebars.renderer;
 
+import com.dannymarsland.magnolia.handlebars.helper.CmsAreaTemplateHelper;
+import com.dannymarsland.magnolia.handlebars.helper.CmsComponentTemplateHelper;
+import com.dannymarsland.magnolia.handlebars.helper.CmsInitTemplateHelper;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -34,17 +37,23 @@ public class HandlebarsRenderer extends AbstractRenderer {
     @Inject
     public HandlebarsRenderer(RenderingEngine renderingEngine) {
         super(renderingEngine);
-
         TemplateLoader loader = new CompositeTemplateLoader(
                 new FileTemplateLoader(new File("src/main/resources/templates")),
                 new ClassPathTemplateLoader("/templates")
         );
         handlebars = new Handlebars(loader);
-
         handlebars.with(new ConcurrentMapTemplateCache());
         handlebars.registerHelper("cms-init", new CmsInitTemplateHelper());
         handlebars.registerHelper("cms-area", new CmsAreaTemplateHelper());
         handlebars.registerHelper("cms-component", new CmsComponentTemplateHelper());
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void setupContext(Map<String, Object> context, Node content, RenderableDefinition definition,
+                                RenderingModel<?> model, Object actionResult) {
+        super.setupContext(context, content, definition, model, actionResult);
+        context.putAll(RenderContext.get().getModel());
     }
 
     @Override
@@ -63,12 +72,10 @@ public class HandlebarsRenderer extends AbstractRenderer {
                             Map<String, Object> context, String templateScript) throws RenderException {
 
         // final Locale locale = MgnlContext.getAggregationState().getLocale();
-        // @todo localization support in Handlebars ?
         final AppendableWriter out;
         try {
             out = renderingContext.getAppendable();
-            // Was previously not creating a new context and just passing the context directly,
-            // however https://github.com/eiswind/handlebars-magnolia-renderer created a new new context as shown below
+            // @todo add localized node resolve
             Context localContext = Context.newBuilder(context)
                     .resolver(JavaBeanValueResolver.INSTANCE, FieldValueResolver.INSTANCE, MapValueResolver.INSTANCE)
                     .build();

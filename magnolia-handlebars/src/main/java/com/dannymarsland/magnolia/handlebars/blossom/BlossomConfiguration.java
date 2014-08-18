@@ -1,6 +1,6 @@
-package com.dannymarsland.magnolia.handlebars.example.blossom.configuration;
+package com.dannymarsland.magnolia.handlebars.blossom;
 
-import com.dannymarsland.magnolia.handlebars.helper.HandlebarsRenderer;
+import com.dannymarsland.magnolia.handlebars.renderer.HandlebarsRenderer;
 import info.magnolia.module.blossom.preexecution.BlossomHandlerMapping;
 import info.magnolia.module.blossom.view.TemplateViewResolver;
 import info.magnolia.module.blossom.view.UuidRedirectViewResolver;
@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
-@SuppressWarnings("deprecation")
 @Configuration
 public class BlossomConfiguration {
 
@@ -26,6 +25,7 @@ public class BlossomConfiguration {
     }
 
     @Bean
+    @SuppressWarnings("deprecation")
     public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter() {
         AnnotationMethodHandlerAdapter adapter = new AnnotationMethodHandlerAdapter();
         adapter.setCustomArgumentResolver(new BlossomWebArgumentResolver());
@@ -33,6 +33,7 @@ public class BlossomConfiguration {
     }
 
     @Bean
+    @SuppressWarnings("deprecation")
     public DefaultAnnotationHandlerMapping defaultAnnotationHandlerMapping() {
         DefaultAnnotationHandlerMapping mapping = new DefaultAnnotationHandlerMapping();
         mapping.setUseDefaultSuffixPattern(false);

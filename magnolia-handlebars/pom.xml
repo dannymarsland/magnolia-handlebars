@@ -38,6 +38,14 @@
             <groupId>info.magnolia.blossom</groupId>
             <artifactId>magnolia-module-blossom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
